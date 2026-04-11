@@ -69,6 +69,18 @@ TOC format:
 }
 ```
 
+### Phase 3 — Vault Ingestion (optional)
+
+For book PDFs, split output by chapter and create vault notes:
+
+```bash
+obsidian create vault="Ataraxia" path="80. References/01 Book/<title>/<chapter>.md" content="..."
+```
+
+- Books go to `80. References/01 Book/<title>/`
+- Non-book PDFs go to the appropriate `80. References/` subfolder
+- Each split chapter becomes its own note with normalized headings and frontmatter
+
 ## Verification
 
 The script runs automatic checks after conversion:
