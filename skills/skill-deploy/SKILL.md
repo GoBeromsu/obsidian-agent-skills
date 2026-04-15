@@ -26,8 +26,8 @@ Skills without `publish: true` in their metadata are **vault-only** and are not 
 
 | Status | Skills |
 |--------|--------|
-| `publish: true` (via marketplace) | brian-note-challenge, clawhip, obsidian-cli, openclaw, pdf2md, skill-deploy |
-| Vault-only (not pushed) | book, channel-ingest, deploy-quartz, fyc, gws, naver, obsidian-vault-doctor, rize, terminology, youtube-upload, zotero |
+| `publish: true` (via marketplace) | book, brian-note-challenge, clawhip, deploy-quartz, fyc, gws, obsidian-cli, obsidian-vault-doctor, openclaw, pdf2md, rize, skill-deploy, terminology, youtube-upload, zotero |
+| Vault-only (not pushed) | channel-ingest, naver (directories not present in vault) |
 
 ## Process
 
