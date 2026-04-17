@@ -43,12 +43,7 @@ One source, four sinks. Every publishable skill lands on every non-GitHub target
 
 ## Private Skills Note
 
-Skills without `publish: true` in their metadata are **vault-only** and are not pushed to GitHub. They are not delivered via `claude plugins update`. If needed on non-vault machines, copy them manually from the vault SSOT.
-
-| Status | Skills |
-|--------|--------|
-| `publish: true` (via marketplace) | book, brian-note-challenge, clawhip, deploy-quartz, fyc, gws, obsidian-cli, obsidian-vault-doctor, openclaw, pdf2md, rize, skill-deploy, terminology, youtube-upload, zotero |
-| Vault-only (not pushed) | channel-ingest, naver (directories not present in vault) |
+Skills without `publish: true` in their `{skill-name}.md` metadata are **vault-only**. Step 1's scan filters them out automatically — no hardcoded allow/deny list is maintained here, because any static list rots the moment a new skill lands or an old one flips `publish`. The live SSOT for "what shipped this run" is Step 7's report; for "what is currently publishable" it is the Step 1 scan over the vault. If a vault-only skill is needed on a non-vault machine, copy it manually from the vault SSOT.
 
 ## Process
 
