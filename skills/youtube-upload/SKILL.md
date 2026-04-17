@@ -33,7 +33,7 @@ Every upload gets:
 - Bilingual metadata: primary language matching the spoken audio, plus a
   localized version in the other language (English ↔ Korean)
 - Language metadata (`defaultAudioLanguage`) to enable YouTube auto-dubbing
-- Automatic vault note tracking at `12. Area/Youtube/`
+- Automatic vault note tracking at `15. Work/02 Area/Youtube/`
 
 ## When to Use
 
@@ -248,14 +248,14 @@ cat > /tmp/yt_upload_transcript.md << 'TRANSCRIPT_EOF'
 TRANSCRIPT_EOF
 
 obsidian create vault=Ataraxia \
-  path="12. Area/Youtube/<title>.md" \
+  path="15. Work/02 Area/Youtube/<title>.md" \
   content="$(cat /tmp/yt_upload_transcript.md)"
 ```
 
 Then set frontmatter properties (key=value syntax, NOT --flag style):
 
 ```bash
-NOTE_PATH="12. Area/Youtube/<title>.md"
+NOTE_PATH="15. Work/02 Area/Youtube/<title>.md"
 
 obsidian property:set vault=Ataraxia path="$NOTE_PATH" name=type value=video < /dev/null
 obsidian property:set vault=Ataraxia path="$NOTE_PATH" name=video_id value="<video_id>" < /dev/null
@@ -282,7 +282,7 @@ Report to the user:
 - Language: `<spoken_language>` (defaultAudioLanguage set)
 - Localizations: `<list of locale codes set, e.g., en + ko>`
 - Thumbnail: graph view / face-only / skipped
-- Vault note: `12. Area/Youtube/<title>.md`
+- Vault note: `15. Work/02 Area/Youtube/<title>.md`
 - MoC tracking: visible in 📚 802 Youtube
 - Auto-dubbing: remind if not previously mentioned
 
@@ -306,7 +306,7 @@ Report to the user:
 - Description has no timestamps/chapters section
 - Description has no hashtags
 - Thumbnail step is skipped without warning the user
-- Vault note created in 80. References/ instead of 12. Area/Youtube/
+- Vault note created in 80. References/ instead of 15. Work/02 Area/Youtube/
 - Transcript step skips ffmpeg extraction and fails on mp4 format
 - Upload completes without `defaultAudioLanguage` set
 - No localized metadata added (missing Korean or English localization)
@@ -325,7 +325,7 @@ After completing the skill's process, confirm:
 - [ ] Video was uploaded and video_id was returned
 - [ ] Custom thumbnail was set on YouTube
 - [ ] Duplicate check passed (no existing note with same video_id)
-- [ ] Vault note created at `12. Area/Youtube/`
+- [ ] Vault note created at `15. Work/02 Area/Youtube/`
 - [ ] Language was set via `--language` or auto-detected from transcript
 - [ ] `defaultAudioLanguage` and `defaultLanguage` were set on YouTube
 - [ ] Localized title/description added for the alternate language (en↔ko)
@@ -445,7 +445,7 @@ agent-browser navigate "https://www.youtube.com/watch?v=<video_id>"
 agent-browser extract  # returns defuddled content including transcript
 
 # 2. Create vault note manually with the extracted transcript
-obsidian create vault=Ataraxia path="12. Area/Youtube/<title>.md" content="..."
+obsidian create vault=Ataraxia path="15. Work/02 Area/Youtube/<title>.md" content="..."
 ```
 
 ## Expected console output (successful run)
