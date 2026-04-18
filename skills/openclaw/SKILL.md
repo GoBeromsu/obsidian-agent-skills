@@ -8,7 +8,7 @@ description: Manage OpenClaw agent lifecycle on m1-pro — add/remove/modify age
 ## Overview
 Operate the OpenClaw multi-agent gateway running on m1-pro. OpenClaw is the "지휘자" (conductor) — it receives messages from Discord/Telegram/Slack, routes them to the appropriate AI agent, and returns responses. This skill captures personal operational context that generic docs do not cover. For standard CLI reference and setup instructions, query NotebookLM MCP with the OpenClaw documentation.
 
-Vault reference: `Ataraxia/50. AI/04 Workspaces/OpenClaw/` contains workspace definitions, agent protocols (AGENTS.md), and bootstrap guides (global.md).
+Vault reference: `Ataraxia/50. AI/04 Skills/openclaw/` is the live vault source for this skill package and its supporting references.
 
 ## When to Use
 - Adding, removing, or modifying agents (model change, identity update, skill assignment)
@@ -244,7 +244,7 @@ rm -rf ~/.openclaw/skills/<project-skill>/
 ```
 
 6. **Update vault references:**
-- Check `Ataraxia/50. AI/04 Workspaces/OpenClaw/openclaw.md` for agent references
+- Check `Ataraxia/50. AI/04 Skills/openclaw/references/operations.md` for agent references and operational notes
 - Update agent composition tables in terminology notes
 - Remove or archive related workspace notes
 
@@ -257,7 +257,7 @@ curl -s http://127.0.0.1:18789/health   # Gateway still healthy
 
 ## Reference
 
-For architecture diagrams, agent composition, session protocol, heartbeat vs cron, and troubleshooting (삽질 기록), see [references/operations.md](50.%20AI/04%20Skills/openclaw/references/operations.md).
+For architecture diagrams, agent composition, session protocol, heartbeat vs cron, and troubleshooting (삽질 기록), see [references/operations.md](references/operations.md).
 
 ## Common Rationalizations
 | Rationalization | Reality |
