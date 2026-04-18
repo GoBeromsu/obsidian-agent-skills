@@ -6,7 +6,7 @@ speaker:
   - "{{speaker_name}}"
 title: "{{title}}"
 description: "{{one_line_description}}"
-source: "[[{{raw_note_title}}]]"
+source: "[[80. References/05 Videos/{{raw_note_title}}|{{raw_note_title}}]]"
 image: "https://img.youtube.com/vi/{{video_id}}/maxresdefault.jpg"
 tags:
   - reference

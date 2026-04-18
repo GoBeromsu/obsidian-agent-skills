@@ -107,7 +107,7 @@ Read the relevant template:
 - Article: `assets/article-processed.template.md`
 
 Fill placeholders. Note:
-- `source: "[[{{raw_note_title}}]]"` — wikilink to the raw note. NOT the URL. The URL stays in raw only.
+- `source: "[[80. References/05 Videos/{{raw_note_title}}|{{raw_note_title}}]]"` (video) or `"[[80. References/04 Articles/{{raw_note_title}}|{{raw_note_title}}]]"` (article) — **full-path** wikilink with alias. The processed note shares the raw note's filename, so the link MUST use the absolute vault path to disambiguate. NOT the URL. The URL stays in raw only.
 - `author`: copy from raw (do not re-search — raw is SSOT)
 - Article: copy `description`, `date_published` from raw (no re-derive)
 - `status: done`
@@ -148,7 +148,7 @@ This self-check is MANDATORY on every save, including re-spawn iterations (see S
 A coverage-motivated rewrite may inadvertently remove a mermaid diagram or alter TL;DR
 shape — do not assume structural DoD carries over from a previous iteration.
 
-- [ ] Frontmatter integrity: `source:` is `"[[raw_note_title]]"` wikilink (NOT a URL);
+- [ ] Frontmatter integrity: `source:` is full-path wikilink `"[[80. References/05 Videos/TITLE|TITLE]]"` (video) or `"[[80. References/04 Articles/TITLE|TITLE]]"` (article) — NOT a URL, NOT a bare `[[TITLE]]` (raw and processed share the same stem; full path disambiguates);
       `status: done`; `type`, `up:`, `date_created`, `date_modified` present;
       video: `author`, `speaker`, `image` populated;
       article: `author`, `description`, `date_published` populated.
@@ -170,7 +170,7 @@ shape — do not assume structural DoD carries over from a previous iteration.
 | Video | `50. AI/05 Videos/TITLE.md` |
 | Article | `50. AI/06 Articles/TITLE.md` |
 
-Filename: match the raw note's filename exactly (same sanitization) so `source: "[[TITLE]]"` resolves unambiguously.
+Filename: match the raw note's filename exactly (same sanitization). Because raw and processed share the same stem, `source:` MUST encode the full raw-note vault path (e.g., `"[[80. References/05 Videos/TITLE|TITLE]]"`) so Obsidian resolves the link to the raw note and not to this same-named processed note.
 
 Path assertion: final path MUST start with the expected base dir. Abort if not.
 
@@ -241,7 +241,7 @@ If output is far below the band, you summarized. Rewrite.
 - [ ] Size benchmark met
 - [ ] 5+ validated wikilinks
 - [ ] Template frontmatter fully populated
-- [ ] `source: "[[raw]]"` wikilink resolves
+- [ ] `source:` is a full-path wikilink (e.g., `"[[80. References/05 Videos/TITLE|TITLE]]"`) that resolves to the raw note — not a bare `[[TITLE]]` (ambiguous with the same-named processed note)
 - [ ] Article: `description`, `date_published` carried from raw
 - [ ] `status: done`
 - [ ] TL;DR is callout, not heading

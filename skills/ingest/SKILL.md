@@ -15,7 +15,7 @@ A 4-stage pipeline that turns one URL into a vault note at 「W를 찾아서」 
 3. **Stage 3 — Review** (fresh agent, read-only): transcript coverage audit → APPROVE / ITERATE / REJECT
 4. **Stage 4 — Terminology backfill** (fresh orchestrator, spawned by Stage 2 after APPROVE): source-idempotency check → fan-out parallel `/terminology` subagents → `50. AI/02 Terminologies/`
 
-**SSOT chain.** Raw note holds the web URL (`source_url:`). Processed note holds `source: "[[raw]]"` wikilink. Reviewer reads both. Raw is immutable; processed is regenerable.
+**SSOT chain.** Raw note holds the web URL (`source_url:`). Processed note holds a full-path wikilink to the raw note (e.g., `source: "[[80. References/05 Videos/TITLE|TITLE]]"`). The full path is required because raw and processed notes share the same filename stem — a bare `[[TITLE]]` would resolve ambiguously. Reviewer reads both. Raw is immutable; processed is regenerable.
 
 **Why 3 stages?** Stage 1 and 2 run in separate contexts so the rewriter gets a focused prompt, not a conversation history. Stage 3 is a fresh agent so the reviewer cannot self-approve its own draft.
 
@@ -72,7 +72,7 @@ Spawn a fresh agent with:
 
 ## Stage 2 — Process (spawned agent)
 
-The spawned agent reads `references/stage2-process.md` and `references/golden-patterns.md`. It is bound by every-sentence-preservation, chapter floors, per-chapter mermaid, 5+ validated wikilinks, and TL;DR callout shape. It uses `assets/{video,article}-processed.template.md`. It writes to `50. AI/05 Videos/` or `50. AI/06 Articles/` with `status: done` and `source: "[[raw]]"`.
+The spawned agent reads `references/stage2-process.md` and `references/golden-patterns.md`. It is bound by every-sentence-preservation, chapter floors, per-chapter mermaid, 5+ validated wikilinks, and TL;DR callout shape. It uses `assets/{video,article}-processed.template.md`. It writes to `50. AI/05 Videos/` or `50. AI/06 Articles/` with `status: done` and `source:` as a full-path wikilink to the raw note (`"[[80. References/05 Videos/TITLE|TITLE]]"` for video, `"[[80. References/04 Articles/TITLE|TITLE]]"` for article).
 
 When the processed note is saved, Stage 2 spawns Stage 3.
 
@@ -163,7 +163,7 @@ ingest/
 ## Red Flags
 
 - Stage 1 and Stage 2 executed in the same agent context
-- `source:` field in processed note is a URL instead of `[[raw]]` wikilink
+- `source:` field in processed note is a URL or bare `[[TITLE]]` instead of a full-path `[[80. References/{05 Videos|04 Articles}/TITLE|TITLE]]` wikilink
 - Reviewer verdict ignored or Stage 3 skipped
 - Re-spawn loop runs more than 3 iterations
 
@@ -173,7 +173,7 @@ ingest/
 - [ ] Raw has non-empty `## 공명`
 - [ ] Stage 2 spawned via Task tool (not continued in same context)
 - [ ] Processed note saved at `50. AI/{05 Videos|06 Articles}/TITLE.md` with `status: done`
-- [ ] Processed `source:` is `"[[raw]]"` wikilink that resolves
+- [ ] Processed `source:` is a full-path wikilink (`"[[80. References/05 Videos/TITLE|TITLE]]"` or `"[[80. References/04 Articles/TITLE|TITLE]]"`) that resolves to the raw note
 - [ ] Stage 3 reviewer verdict recorded and followed
 - [ ] If ITERATE, re-spawn happened with FEEDBACK; if ≥3 iterations, user was surfaced
 - [ ] Stage 1 exits after spawning Stage 2 (does NOT orchestrate Stage 4)
