@@ -7,11 +7,6 @@ set -euo pipefail
 #   - ---aliases: [] → ---\naliases: [] for malformed opening line repair
 # Auto-fixable: Yes — mechanical delimiter / newline normalization only
 
-if ! pgrep -x "Obsidian" > /dev/null 2>&1; then
-    echo "ERROR: Obsidian is not running. Please open Obsidian first." >&2
-    exit 1
-fi
-
 VAULT="${1:-./Ataraxia}"
 DRY_RUN=false
 TARGET_PATH=""

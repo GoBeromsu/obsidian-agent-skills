@@ -25,7 +25,8 @@ from frontmatter_parser import iter_markdown_files, parse_frontmatter, DEFAULT_E
 
 VAULT = Path(os.environ['VAULT'])
 
-DEPRECATED = {'created_at', 'modified_at', 'book_note', 'links', 'priority'}
+import json, os
+DEPRECATED = set(json.loads(os.environ.get('DEPRECATED_KEYS_JSON', '[]')))
 DATE_FIELDS = {'date_created', 'date_modified', 'date_published', 'date_started', 'date_finished'}
 DATETIME_RE = re.compile(r'\d{4}-\d{2}-\d{2}T')
 

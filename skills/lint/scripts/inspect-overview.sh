@@ -7,6 +7,7 @@
 # Output: stdout (human-readable)
 
 VAULT="${1:-./Ataraxia}"
+VAULT_NAME="$(basename "$VAULT")"
 EXCLUDE_PATTERN=".obsidian|.trash|.git|.omc|.claude|_archive|02 Templates"
 
 echo "=== Vault Overview ==="
@@ -22,7 +23,7 @@ echo ""
 echo "--- obsidian CLI Stats ---"
 if command -v obsidian &>/dev/null; then
     echo "Properties overview:"
-    obsidian properties counts format=json 2>/dev/null | python3 -c "
+    obsidian properties counts format=json vault="$VAULT_NAME" 2>/dev/null | python3 -c "
 import json, sys
 data = json.load(sys.stdin)
 for item in sorted(data, key=lambda x: -x.get('count',0))[:20]:
@@ -31,7 +32,7 @@ for item in sorted(data, key=lambda x: -x.get('count',0))[:20]:
 
     echo ""
     echo "Tag counts (top 20):"
-    obsidian tags counts format=json 2>/dev/null | python3 -c "
+    obsidian tags counts format=json vault="$VAULT_NAME" 2>/dev/null | python3 -c "
 import json, sys
 data = json.load(sys.stdin)
 for item in sorted(data, key=lambda x: -x.get('count',0))[:20]:
@@ -40,11 +41,11 @@ for item in sorted(data, key=lambda x: -x.get('count',0))[:20]:
 
     echo ""
     echo "Orphaned files:"
-    obsidian orphans total 2>/dev/null || echo "  (obsidian CLI not available)"
+    obsidian orphans total vault="$VAULT_NAME" 2>/dev/null || echo "  (obsidian CLI not available)"
 
     echo ""
     echo "Unresolved links:"
-    obsidian unresolved verbose format=json 2>/dev/null | python3 -c "
+    obsidian unresolved verbose format=json vault="$VAULT_NAME" 2>/dev/null | python3 -c "
 import json, sys
 data = json.load(sys.stdin)
 print(f'  Total unresolved: {len(data)}')

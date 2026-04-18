@@ -4,14 +4,20 @@ set -euo pipefail
 # Guideline: 03. Tag Guideline §6 — Legacy zettel/* tags must be replaced
 # Fixes: zettel/fleeting → fleeting, zettel/permanent → permanent, zettel/literature → literature
 
-if ! pgrep -x "Obsidian" > /dev/null 2>&1; then
-    echo "ERROR: Obsidian is not running. Please open Obsidian first." >&2
-    exit 1
-fi
-
 VAULT="${1:-./Ataraxia}"
+VAULT_NAME="$(basename "$VAULT")"
 DRY_RUN=false
 for arg in "${@:2}"; do [[ "$arg" == "--dry-run" ]] && DRY_RUN=true; done
+
+if ! pgrep -x "Obsidian" > /dev/null 2>&1; then
+    if [[ "$DRY_RUN" == "true" ]]; then
+        echo "SKIP: Obsidian not running; dry-run skipped for fix-legacy-tags.sh"
+        exit 0
+    else
+        echo "ERROR: Obsidian is not running. Please open Obsidian first." >&2
+        exit 1
+    fi
+fi
 
 echo "=== fix-legacy-tags.sh ==="
 echo "Vault: $VAULT"
@@ -31,7 +37,7 @@ done
 while IFS= read -r -d '' mdfile; do
     rel="${mdfile#"$VAULT/"}"
 
-    tags_raw=$(obsidian property:read name="tags" path="$rel" vault="Ataraxia" 2>/dev/null || true)
+    tags_raw=$(obsidian property:read name="tags" path="$rel" vault="$VAULT_NAME" 2>/dev/null || true)
     if [[ -z "$tags_raw" ]] || echo "$tags_raw" | grep -qi '^Error'; then
         SKIPPED=$((SKIPPED + 1))
         continue
@@ -91,7 +97,7 @@ PYEOF
         echo "            tags → [$result]"
         FIXED=$((FIXED + 1))
     else
-        set_result=$(obsidian property:set name="tags" value="[$result]" type=list path="$rel" vault="Ataraxia" 2>/dev/null)
+        set_result=$(obsidian property:set name="tags" value="[$result]" type=list path="$rel" vault="$VAULT_NAME" 2>/dev/null)
         if echo "$set_result" | grep -qi '^Error'; then
             echo "  ERROR: $rel — $set_result" >&2
             ERRORS=$((ERRORS + 1))

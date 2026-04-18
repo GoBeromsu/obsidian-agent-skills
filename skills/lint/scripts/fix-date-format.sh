@@ -4,14 +4,20 @@ set -euo pipefail
 # Guideline: 00. Core Guideline §3 — date_created must be YYYY-MM-DD (date type, not datetime)
 # Fixes: datetime values like "2024-01-01T12:34:56" or "2024-01-01 12:34:56" → "2024-01-01"
 
-if ! pgrep -x "Obsidian" > /dev/null 2>&1; then
-    echo "ERROR: Obsidian is not running. Please open Obsidian first." >&2
-    exit 1
-fi
-
 VAULT="${1:-./Ataraxia}"
+VAULT_NAME="$(basename "$VAULT")"
 DRY_RUN=false
 for arg in "${@:2}"; do [[ "$arg" == "--dry-run" ]] && DRY_RUN=true; done
+
+if ! pgrep -x "Obsidian" > /dev/null 2>&1; then
+    if [[ "$DRY_RUN" == "true" ]]; then
+        echo "SKIP: Obsidian not running; dry-run skipped for fix-date-format.sh"
+        exit 0
+    else
+        echo "ERROR: Obsidian is not running. Please open Obsidian first." >&2
+        exit 1
+    fi
+fi
 
 echo "=== fix-date-format.sh ==="
 echo "Vault: $VAULT"
@@ -63,7 +69,7 @@ PYEOF
 while IFS= read -r -d '' mdfile; do
     rel="${mdfile#"$VAULT/"}"
 
-    date_raw=$(obsidian property:read name="date_created" path="$rel" vault="Ataraxia" 2>/dev/null || true)
+    date_raw=$(obsidian property:read name="date_created" path="$rel" vault="$VAULT_NAME" 2>/dev/null || true)
     if [[ -z "$date_raw" ]] || echo "$date_raw" | grep -qi '^Error'; then
         SKIPPED=$((SKIPPED + 1))
         continue
@@ -82,7 +88,7 @@ while IFS= read -r -d '' mdfile; do
         echo "            date_created: '$date_val' → '$new_date'"
         FIXED=$((FIXED + 1))
     else
-        set_result=$(obsidian property:set name="date_created" value="$new_date" type=date path="$rel" vault="Ataraxia" 2>/dev/null)
+        set_result=$(obsidian property:set name="date_created" value="$new_date" type=date path="$rel" vault="$VAULT_NAME" 2>/dev/null)
         if echo "$set_result" | grep -qi '^Error'; then
             echo "  ERROR: $rel — $set_result" >&2
             ERRORS=$((ERRORS + 1))

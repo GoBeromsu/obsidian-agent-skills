@@ -52,10 +52,10 @@ def is_archive_folder(part: str) -> bool:
     return folder_semantic_name(part) in {'archive', 'archives'}
 
 FOLDER_TYPE_MAP = {
-    ('55. Tools',): 'tool',
-    ('50. AI', '52. Terminologies'): 'terminology',
-    ('70. Collections', '74. MoC'): 'moc',
-    ('80. References', '81. Book'): 'book',
+    ('80. References', '07 Github'): 'tool',
+    ('50. AI', '02 Terminologies'): 'terminology',
+    ('70. Collections', '03 MoC'): 'moc',
+    ('80. References', '01 Book'): 'book',
 }
 
 MUSIC_ALLOWED = {
@@ -147,7 +147,7 @@ for fpath in iter_markdown_files(VAULT):
             folder_type_violations.append(f'  - {rel}: type={t}, expected={expected}')
 
     # Dashboard type check (10. Time/06 Dashboard/)
-    if len(parts) >= 2 and parts[0] == '10. Time' and parts[1] == '16. Dashboard':
+    if len(parts) >= 2 and parts[0] == '10. Time' and parts[1] == '06 Dashboard':
         if t != 'plan' and len(dashboard_violations) < MAX_SAMPLES:
             dashboard_violations.append(f'  - {rel}: type={t or "(none)"}, expected=plan')
 
@@ -178,7 +178,7 @@ sections = [
     (invalid_types, f"Invalid Type Values: {sum(1 for t in type_counts if t not in ALLOWED_TYPES)} distinct"),
     (type_tag_mismatches, f"Type/Tag Mismatches (reference types): {len(type_tag_mismatches)}"),
     (folder_type_violations, f"Project/Area/Archive Type Correctness: {len(folder_type_violations)} violations"),
-    (dashboard_violations, f"16. Dashboard → plan: {len(dashboard_violations)} violations"),
+    (dashboard_violations, f"06 Dashboard → plan: {len(dashboard_violations)} violations"),
     (folder_map_violations, f"Folder-Type Mapping Violations: {len(folder_map_violations)}"),
     (music_violations, f"Music Property Invalid Values: {len(music_violations)}"),
 ]

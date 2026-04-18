@@ -5,14 +5,20 @@ set -euo pipefail
 # Canonical: todo, inprogress, done, reviewed, stop
 # Fixes: non-canonical status values → nearest canonical value
 
-if ! pgrep -x "Obsidian" > /dev/null 2>&1; then
-    echo "ERROR: Obsidian is not running. Please open Obsidian first." >&2
-    exit 1
-fi
-
 VAULT="${1:-./Ataraxia}"
+VAULT_NAME="$(basename "$VAULT")"
 DRY_RUN=false
 for arg in "${@:2}"; do [[ "$arg" == "--dry-run" ]] && DRY_RUN=true; done
+
+if ! pgrep -x "Obsidian" > /dev/null 2>&1; then
+    if [[ "$DRY_RUN" == "true" ]]; then
+        echo "SKIP: Obsidian not running; dry-run skipped for fix-status-values.sh"
+        exit 0
+    else
+        echo "ERROR: Obsidian is not running. Please open Obsidian first." >&2
+        exit 1
+    fi
+fi
 
 echo "=== fix-status-values.sh ==="
 echo "Vault: $VAULT"
@@ -62,7 +68,7 @@ PYEOF
 while IFS= read -r -d '' mdfile; do
     rel="${mdfile#"$VAULT/"}"
 
-    status_raw=$(obsidian property:read name="status" path="$rel" vault="Ataraxia" 2>/dev/null || true)
+    status_raw=$(obsidian property:read name="status" path="$rel" vault="$VAULT_NAME" 2>/dev/null || true)
     if [[ -z "$status_raw" ]] || echo "$status_raw" | grep -qi '^Error'; then
         SKIPPED=$((SKIPPED + 1))
         continue
@@ -87,7 +93,7 @@ while IFS= read -r -d '' mdfile; do
         echo "            status: '$status_val' → '$new_status'"
         FIXED=$((FIXED + 1))
     else
-        set_result=$(obsidian property:set name="status" value="$new_status" path="$rel" vault="Ataraxia" 2>/dev/null)
+        set_result=$(obsidian property:set name="status" value="$new_status" path="$rel" vault="$VAULT_NAME" 2>/dev/null)
         if echo "$set_result" | grep -qi '^Error'; then
             echo "  ERROR: $rel — $set_result" >&2
             ERRORS=$((ERRORS + 1))

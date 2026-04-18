@@ -29,7 +29,7 @@ from frontmatter_parser import (
 VAULT = Path(os.environ['VAULT'])
 TIER0_RE = re.compile(r'📖\s*[1-9]00')
 PERMANENT_PATH = str(VAULT / "40. Permanent Notes")
-MOC_PATH = VAULT / "70. Collections" / "74. MoC"
+MOC_PATH = VAULT / "70. Collections" / "03 MoC"
 MOC_NUMBERED_RE = re.compile(r'^\d{3}(\.\d{2})?[\s_]')
 
 DUAL_MOC_TYPES = {'article', 'paper', 'terminology'}
