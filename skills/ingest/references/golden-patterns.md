@@ -78,7 +78,10 @@ Examples:
 
 The authoritative templates live in `assets/{video,article}-{raw,processed}.template.md`.
 This example shows the **processed** video frontmatter shape. The `source:` field is a
-wikilink to the raw note — NOT the URL. The URL stays in the raw note's `source_url:`.
+**full-path** wikilink to the raw note with an alias — NOT the URL, NOT a bare `[[TITLE]]`.
+Raw and processed notes share the same filename stem, so the full vault path is required
+to disambiguate; the alias keeps the displayed label clean. The URL stays in the raw
+note's `source_url:`.
 
 ```yaml
 ---
@@ -89,7 +92,7 @@ speaker:
   - Speaker Name
 title: "Title"
 description: "{{one_line_description}}"
-source: "[[raw_note_title]]"
+source: "[[80. References/05 Videos/raw_note_title|raw_note_title]]"
 image: "https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg"
 tags:
   - reference

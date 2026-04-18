@@ -3,7 +3,7 @@ aliases: []
 author: "{{author}}"
 title: "{{title}}"
 description: "{{one_line_description}}"
-source: "[[{{raw_note_title}}]]"
+source: "[[80. References/04 Articles/{{raw_note_title}}|{{raw_note_title}}]]"
 image: "{{og_image}}"
 tags:
   - reference
