@@ -13,7 +13,6 @@ tags:
   - reference/video
 type: video
 status: done
-up: "[[05 Videos (AI)]]"
 date_created: {{date_created}}
 date_modified: {{date_modified}}
 date_published: {{upload_date}}

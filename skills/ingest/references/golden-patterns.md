@@ -96,7 +96,6 @@ tags:
   - reference/video
 type: video
 status: done
-up: "[[05 Videos (AI)]]"
 date_created: YYYY-MM-DD
 date_modified: YYYY-MM-DD
 date_published: YYYY-MM-DD
