@@ -1,6 +1,6 @@
 ---
 name: obsidian-markdown
-description: Create and edit Obsidian Flavored Markdown with wikilinks, embeds, callouts, properties, and other Obsidian-specific syntax. Enforces the user's preferred formatting for notes -- headings limited to `##`-`####` (no H1, no H5+) and nested bullet lists limited to depth 3. Use when working with .md files in an Obsidian vault, when the user mentions wikilinks, callouts, frontmatter, tags, embeds, Obsidian notes, "옵시디언 노트", "콜아웃", "프론트매터", or when producing a note the user will read inside Obsidian.
+description: Create and edit Obsidian Flavored Markdown with wikilinks, embeds, callouts, properties, and other Obsidian-specific syntax. Enforces the user's preferred formatting for notes -- headings limited to `##`-`####` (no H1, no H5+) and nested bullet lists limited to depth 3. Use when working with .md files in an Obsidian vault, when the user mentions wikilinks, callouts, frontmatter, tags, embeds, or Obsidian notes, or when producing a note the user will read inside Obsidian.
 ---
 
 # Obsidian Flavored Markdown Skill
