@@ -9,11 +9,12 @@ tags:
   - reference
   - reference/article
 type: article
-status: done
-up: "[[06 Articles (AI)]]"
-date_created: {{date_created}}
-date_modified: {{date_modified}}
-date_published: {{date_published}}
+date_created:
+  "{ date_created }":
+date_modified:
+  "{ date_modified }":
+date_published:
+  "{ date_published }":
 related: []
 ---
 

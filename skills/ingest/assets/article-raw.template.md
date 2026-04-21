@@ -10,10 +10,12 @@ tags:
   - reference/article
 type: article
 status: raw
-up: "[[04 Articles]]"
-date_created: {{date_created}}
-date_modified: {{date_modified}}
-date_published: {{date_published}}
+date_created:
+  "{ date_created }":
+date_modified:
+  "{ date_modified }":
+date_published:
+  "{ date_published }":
 language: "{{language}}"
 domain: "{{domain}}"
 related: []

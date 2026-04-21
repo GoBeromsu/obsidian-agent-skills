@@ -5,6 +5,9 @@ description: Manage OpenClaw agent lifecycle on m1-pro — add/remove/modify age
 
 # openclaw
 
+> [!warning] Deprecated (2026-04-21)
+> OpenClaw is being replaced by [[Hermes Agent|Hermes]] on m1-pro. BNC/GDR cron and skill pipeline are moving to Hermes per `.omc/plans/2026-04-21-hermes-skill-pipeline-retarget.md`. This skill is preserved for 30 days as a rollback fallback; new work should target Hermes via `skill-deploy`'s Hermes leg.
+
 ## Overview
 Operate the OpenClaw multi-agent gateway running on m1-pro. OpenClaw is the "지휘자" (conductor) — it receives messages from Discord/Telegram/Slack, routes them to the appropriate AI agent, and returns responses. This skill captures personal operational context that generic docs do not cover. For standard CLI reference and setup instructions, query NotebookLM MCP with the OpenClaw documentation.
 

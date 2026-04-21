@@ -2,20 +2,20 @@
 aliases: []
 author:
   - "[[{{channel_people_note}}]]"
+date_created: 2026-04-18
+date_modified: 2026-04-21
+date_published:
+  "{ upload_date }":
+description: "{{one_line_description}}"
+image: https://img.youtube.com/vi/{{video_id}}/maxresdefault.jpg
+source: "[[80. References/05 Videos/{{raw_note_title}}|{{raw_note_title}}]]"
 speaker:
   - "{{speaker_name}}"
-title: "{{title}}"
-description: "{{one_line_description}}"
-source: "[[80. References/05 Videos/{{raw_note_title}}|{{raw_note_title}}]]"
-image: "https://img.youtube.com/vi/{{video_id}}/maxresdefault.jpg"
 tags:
   - reference
   - reference/video
+title: "{{title}}"
 type: video
-status: done
-date_created: {{date_created}}
-date_modified: {{date_modified}}
-date_published: {{upload_date}}
 ---
 
 > [!tldr] TL;DR
