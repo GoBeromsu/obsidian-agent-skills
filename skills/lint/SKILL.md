@@ -17,6 +17,10 @@ argument-hint: "[--guideline-dir <path>] [--phase inspect|execute|review] [--sco
 
 `lint` is the vault's three-phase guideline-compliance engine. It reads guideline files under `90. Settings/01 Guideline/` (plus depth-1 and depth-2 `AGENTS.md` files) on every invocation, runs bundled inspection scripts to surface all mechanically-checkable violations, then applies safe auto-fixes through the Obsidian eval engine to preserve wikilinks and backlinks. It is not a knowledge-enrichment or wiki-generation tool — that concern belongs to the future `wiki` skill.
 
+## Vault Access
+
+Use the `obsidian-cli` skill for all note creation, edit, search, and property mutation inside the Ataraxia vault. Do not shell out to raw `cat`/`sed` on vault paths. See the `obsidian-cli` SKILL.md for the command surface and required preconditions (Obsidian must be running).
+
 ## When to Use
 
 **Use when:**

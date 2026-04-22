@@ -15,7 +15,7 @@ Task(
     and a compliant vault stub ({SKILL_DIR}/<skill-name>.md).
 
     MANDATORY: Before writing anything, read the full Skill Guideline at:
-      Ataraxia/90. Settings/01 Guideline/Skill Guideline.md
+      Ataraxia/90. Settings/01 Guideline/11. Skill Guideline.md
 
     Mode: {create | update}
     Target SKILL.md: {SKILL_DIR}/SKILL.md
@@ -53,11 +53,11 @@ Task(
 
     SKILL.md path: {SKILL_DIR}/SKILL.md
     Vault stub path: {SKILL_DIR}/<skill-name>.md
-    Guideline path: Ataraxia/90. Settings/01 Guideline/Skill Guideline.md
+    Guideline path: Ataraxia/90. Settings/01 Guideline/11. Skill Guideline.md
 
     Checklist (evaluate ONLY these):
     1. Guideline compliance: does structure, naming, and section order in SKILL.md match
-       Skill Guideline.md? SKILL.md must NOT contain ## Change Log.
+       `11. Skill Guideline.md`? SKILL.md must NOT contain ## Change Log.
     2. English-only body in SKILL.md: is every non-example-string line in English?
     3. Change Log schema in the vault stub: does ## Change Log exist at the end of
        {SKILL_DIR}/<skill-name>.md, with entries matching

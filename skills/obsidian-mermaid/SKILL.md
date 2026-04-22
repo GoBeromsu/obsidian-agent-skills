@@ -7,7 +7,11 @@ description: Use when you need Mermaid diagrams that render correctly in Obsidia
 
 ## Overview
 
-Obsidian bundles Mermaid 11.4.1 (behind the current release). Diagrams from mermaid.live or AI tools often break because of `\n` in labels, unquoted special characters, subgraph direction, or post-11.4.1 diagram types. This skill encodes what actually works. See also `obsidian-mermaid.md` in this folder for the full reference.
+Obsidian bundles Mermaid 11.4.1 (behind the current release). Diagrams from mermaid.live or AI tools often break because of `\n` in labels, unquoted special characters, subgraph direction, or post-11.4.1 diagram types. This skill encodes what actually works.
+
+## Vault Access
+
+Use the `obsidian-cli` skill for all note creation, edit, search, and property mutation inside the Ataraxia vault. Do not shell out to raw `cat`/`sed` on vault paths. See the `obsidian-cli` SKILL.md for the command surface and required preconditions (Obsidian must be running).
 
 ## Key Constraints
 

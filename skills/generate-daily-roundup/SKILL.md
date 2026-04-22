@@ -6,7 +6,12 @@ description: Use when you need to synthesize a day of source notes into a daily 
 # generate-daily-roundup
 
 ## Overview
+
 Generate a daily roundup by synthesizing the day’s vault activity into a thematic narrative. Sources are discovered across `15. Work/01 Project/`, `15. Work/02 Area/`, `80. References/`, and the daily note at `10. Time/01 Daily Notes/YYYY-MM-DD.md`. Output goes into a section of that daily note. Quality targets from `references/quality-standard.md`: 4+ sources, 8+ validated wikilinks, 2+ cross-source connections, 60+ output lines.
+
+## Vault Access
+
+Use the `obsidian-cli` skill for all note creation, edit, search, and property mutation inside the Ataraxia vault. Do not shell out to raw `cat`/`sed` on vault paths. See the `obsidian-cli` SKILL.md for the command surface and required preconditions (Obsidian must be running).
 
 ## When to Use
 - Use when the user wants a daily synthesis across notes collected during a single day

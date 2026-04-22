@@ -9,6 +9,10 @@ description: Write, read, and optimize Obsidian Bases (`.base` files and `base` 
 
 Obsidian Bases (1.9+) turn the vault into a queryable dataset. Every `.base` file is YAML conforming to a fixed schema; embedded bases use a ` ```base ` code block with the same YAML. Getting `groupBy` and `sort` right is the difference between a base that *lists rows* and a base that *gives the reader a mental model* of the project.
 
+## Vault Access
+
+Use the `obsidian-cli` skill for all note creation, edit, search, and property mutation inside the Ataraxia vault. Do not shell out to raw `cat`/`sed` on vault paths. See the `obsidian-cli` SKILL.md for the command surface and required preconditions (Obsidian must be running).
+
 ## When to Use
 
 - Creating or editing a `.base` file under `90. Settings/05 Bases/`

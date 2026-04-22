@@ -15,6 +15,10 @@ FORMAT=markdown /path/to/fetch_rize_data.sh "<natural language request>"
 
 `FORMAT=markdown` returns ready-to-use Obsidian markdown. Without `FORMAT`, returns raw JSON for programmatic use.
 
+## Vault Access
+
+Use the `obsidian-cli` skill for all note creation, edit, search, and property mutation inside the Ataraxia vault. Do not shell out to raw `cat`/`sed` on vault paths. See the `obsidian-cli` SKILL.md for the command surface and required preconditions (Obsidian must be running).
+
 ## When to Use
 - Use when the user asks about Rize data, focus time, categories, or projects
 - Use when a deterministic fetch-and-format workflow should produce structured output

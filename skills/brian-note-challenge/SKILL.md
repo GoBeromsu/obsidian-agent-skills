@@ -11,6 +11,10 @@ Fetch today's Brian Note Challenge email from Gmail via `gws` CLI, extract the c
 
 Detailed process reference: `[[Brian Note Challenge Daily (BNC)]]`
 
+## Vault Access
+
+Use the `obsidian-cli` skill for all note creation, edit, search, and property mutation inside the Ataraxia vault. Do not shell out to raw `cat`/`sed` on vault paths. See the `obsidian-cli` SKILL.md for the command surface and required preconditions (Obsidian must be running).
+
 ## When to Use
 - The daily BNC email has arrived and needs to be ingested into the vault
 - A past BNC email was missed and needs retroactive ingestion

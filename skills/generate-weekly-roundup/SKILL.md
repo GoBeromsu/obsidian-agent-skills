@@ -9,6 +9,10 @@ description: Use when you need to synthesize a week of activity into a weekly ro
 
 Generate a weekly roundup by reading each day's GDR output as the primary distilled source, supplemented by raw daily notes for days without a GDR. The output is not a summary of summaries — it is a cross-day pattern analysis that names what recurred, what failed repeatedly, and what direction the week's arc implies. The synthesis is written as its own note at `50. AI/03 Roundup/Weekly/YYYY-MM-DD~YYYY-MM-DD - GWR.md`, and the weekly note's `roundup:` frontmatter field is set to point at it — so the weekly note stays a plan/index surface and the GWR note carries the synthesis, exactly like daily notes + GDR notes.
 
+## Vault Access
+
+Use the `obsidian-cli` skill for all note creation, edit, search, and property mutation inside the Ataraxia vault. Do not shell out to raw `cat`/`sed` on vault paths. See the `obsidian-cli` SKILL.md for the command surface and required preconditions (Obsidian must be running).
+
 ## When to Use
 
 - Use when the user wants a weekly synthesis across multiple days

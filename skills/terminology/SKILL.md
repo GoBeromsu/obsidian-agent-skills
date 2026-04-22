@@ -15,6 +15,10 @@ description: >
 
 Create or maintain terminology notes in `50. AI/02 Terminologies/`. The SSOT for this skill's prompt and template is `50. AI/04 Skills/terminology/SKILL.md`. The canonical template is at `references/template.md` (exact extraction from the SSOT prompt). Handles variant detection, boilerplate cleanup, and duplicate merging via obsidian CLI. Produces one note; does not modify neighboring notes.
 
+## Vault Access
+
+Use the `obsidian-cli` skill for all note creation, edit, search, and property mutation inside the Ataraxia vault. Do not shell out to raw `cat`/`sed` on vault paths. See the `obsidian-cli` SKILL.md for the command surface and required preconditions (Obsidian must be running).
+
 ## When to Use
 
 - Use when the user wants a terminology note for a concept

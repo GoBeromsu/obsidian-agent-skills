@@ -8,7 +8,7 @@ description: Manage clawhip daemon operations on m1-pro — stale watch cleanup,
 ## Overview
 Operate the clawhip event-routing daemon running on m1-pro. This skill captures personal operational context (error patterns, workarounds, architecture decisions) that generic docs do not cover. For standard CLI reference and setup instructions, query NotebookLM MCP with the clawhip notebook instead.
 
-clawhip's role in the stack: it is the "무대 매니저" (stage manager) — it watches tmux sessions, git/github events, and agent lifecycle, then routes notifications to Discord. It does not execute code or make decisions; it observes and reports.
+clawhip's role in the stack: it is the stage manager (무대 매니저) — it watches tmux sessions, git/github events, and agent lifecycle, then routes notifications to Discord. It does not execute code or make decisions; it observes and reports.
 
 ## When to Use
 - Stale notifications firing on idle tmux sessions (e.g., `maestro-work pane 0.0 stale for 30m`)
@@ -117,7 +117,7 @@ clawhip send --channel <channel-id> --message "test: clawhip watch reconfigured"
 
 ## Reference
 
-For architecture diagrams, troubleshooting (삽질 기록), daemon lifecycle, and deliver safety details, see [references/operations.md](50.%20AI/04%20Skills/clawhip/references/operations.md).
+For architecture diagrams, troubleshooting (삽질 기록), daemon lifecycle, and deliver safety details, see [references/operations.md](references/operations.md).
 
 ## Common Rationalizations
 | Rationalization | Reality |

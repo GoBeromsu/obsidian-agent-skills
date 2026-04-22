@@ -8,6 +8,10 @@ description: Use when you need to run a structured daily reflection protocol ins
 ## Overview
 Use this skill to run a structured reflection routine based on a question protocol. The public-safe version preserves the guided reflection flow while removing private daily-note assumptions and personal naming conventions.
 
+## Vault Access
+
+Use the `obsidian-cli` skill for all note creation, edit, search, and property mutation inside the Ataraxia vault. Do not shell out to raw `cat`/`sed` on vault paths. See the `obsidian-cli` SKILL.md for the command surface and required preconditions (Obsidian must be running).
+
 ## When to Use
 - Use when the user explicitly wants to do a guided reflection run
 - Use when a one-question-at-a-time reflection protocol is needed

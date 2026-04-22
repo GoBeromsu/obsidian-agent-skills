@@ -6,19 +6,19 @@ permalink: bases/functions
 publish: true
 ---
 
-Functions are used in [[Introduction to Bases|Bases]] to manipulate data from [[properties]] in [[Views#Filters|filters]] and [[formulas]]. See the [[Bases syntax|bases syntax]] reference to learn more about how you can use functions.
+Functions are used in [[Introduction to Bases|Bases]] to manipulate data from [[PROPERTIES]] in [[views#Filters|filters]] and [[formulas]]. See the [[Bases syntax|bases syntax]] reference to learn more about how you can use functions.
 
-Aside from [[Functions#Global|Global]] functions, most functions depend on the type of value you want to modify:
+Aside from [[functions#Global|Global]] functions, most functions depend on the type of value you want to modify:
 
-- [[Functions#Any|Any]]
-- [[Functions#Date|Date]]
-- [[Functions#String|String]]
-- [[Functions#Number|Number]]
-- [[Functions#List|List]]
-- [[Functions#Link|Link]]
-- [[Functions#File|File]]
-- [[Functions#Object|Object]]
-- [[Functions#Regular expression|Regular expression]]
+- [[functions#Any|Any]]
+- [[functions#Date|Date]]
+- [[functions#String|String]]
+- [[functions#Number|Number]]
+- [[functions#List|List]]
+- [[functions#Link|Link]]
+- [[functions#File|File]]
+- [[functions#Object|Object]]
+- [[functions#Regular expression|Regular expression]]
 
 ## Global
 

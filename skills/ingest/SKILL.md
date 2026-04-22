@@ -10,7 +10,7 @@ description: >
 
 A 4-stage pipeline that turns one URL into a vault note at 「W를 찾아서」 quality:
 
-1. **Stage 1 — Raw** (this agent): defuddle → 공명 → terminology substitute (raw Transcript/Content only) → save raw → spawn Stage 2 → **exit**
+1. **Stage 1 — Raw** (this agent): defuddle → resonance (공명) → terminology substitute (raw Transcript/Content only) → save raw → spawn Stage 2 → **exit**
 2. **Stage 2 — Process** (fresh agent, Task tool): rewrite → mermaid → structural DoD self-check → terminology substitute (full processed body) → save → spawn Stage 3; on APPROVE spawn Stage 4
 3. **Stage 3 — Review** (fresh agent, read-only): transcript coverage audit → APPROVE / ITERATE / REJECT
 4. **Stage 4 — Terminology backfill** (fresh orchestrator, spawned by Stage 2 after APPROVE): source-idempotency check → fan-out parallel `/terminology` subagents → `50. AI/02 Terminologies/`
@@ -18,6 +18,10 @@ A 4-stage pipeline that turns one URL into a vault note at 「W를 찾아서」 
 **SSOT chain.** Raw note holds the web URL (`source_url:`). Processed note holds a full-path wikilink to the raw note (e.g., `source: "[[80. References/05 Videos/TITLE|TITLE]]"`). The full path is required because raw and processed notes share the same filename stem — a bare `[[TITLE]]` would resolve ambiguously. Reviewer reads both. Raw is immutable; processed is regenerable.
 
 **Why 3 stages?** Stage 1 and 2 run in separate contexts so the rewriter gets a focused prompt, not a conversation history. Stage 3 is a fresh agent so the reviewer cannot self-approve its own draft.
+
+## Vault Access
+
+Use the `obsidian-cli` skill for all note creation, edit, search, and property mutation inside the Ataraxia vault. Do not shell out to raw `cat`/`sed` on vault paths. See the `obsidian-cli` SKILL.md for the command surface and required preconditions (Obsidian must be running).
 
 ## When to Use
 
@@ -36,7 +40,7 @@ Do NOT use for:
 Follow `references/stage1-raw.md` in detail. Summary:
 
 1. Detect URL type (video vs article)
-2. Interview the user briefly (1-3 exchanges) for 공명
+2. Interview the user briefly (1-3 exchanges) for resonance (공명)
 3. Validate the URL (https scheme, no shell metacharacters); run `defuddle parse "URL" --md -o /tmp/ingest-defuddle-output.md`; delete the temp file after reading
 4. Load the correct template from `assets/`:
    - Video: `assets/video-raw.template.md`
@@ -59,11 +63,11 @@ Spawn a fresh agent with:
       * <skill>/references/stage2-process.md
       * <skill>/references/golden-patterns.md
       * <skill>/assets/video-processed.template.md   (or article-processed)
-  - Task: Read raw_path, rewrite into 문어체 processed note, save to 50. AI/.
+  - Task: Read raw_path, rewrite into a 문어체 (formal written Korean) processed note, save to 50. AI/.
   - Inputs:
       raw_path: /absolute/path/to/raw.md
       content_type: video | article
-      user_intent: <the 공명 text from Stage 1>
+      user_intent: <the resonance text from Stage 1>
       iteration: 1
   - When done, spawn the Stage 3 reviewer per <skill>/references/stage2-process.md Step 8.
 ```

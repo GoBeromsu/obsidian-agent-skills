@@ -9,7 +9,7 @@ publish: true
 
 When you [[Create a base|create a base]] in Obsidian, it is saved as a `.base` file. Bases are typically edited using the app interface, but the syntax can also be edited manually, and embedded in a code block.
 
-The [[Introduction to Bases|Bases]] syntax defines [[Views]], filters, and [[formulas]]. Bases must be valid YAML conforming to the schema defined below.
+The [[Introduction to Bases|Bases]] syntax defines [[views]], filters, and [[formulas]]. Bases must be valid YAML conforming to the schema defined below.
 
 ## Example
 
@@ -92,7 +92,7 @@ These two sections are functionally equivalent and when evaluating for a view th
 The `filters` section contains either a single filter statement as a string, or a recursively defined filter object. Filter objects may contain one of `and`, `or`, or `not`. These keys are a heterogeneous list of other filter objects or filter statements in strings. A filter statement is a line which evaluates to truthy or falsey when applied to a note. It can be one of the following:
 
 - A basic comparison using standard arithmetic operators.
-- A function. A variety of [[Functions]] are built-in, and plugins can add additional functions.
+- A function. A variety of [[functions]] are built-in, and plugins can add additional functions.
 
 The syntax and available functions for filters and formulas are the same.
 
@@ -106,7 +106,7 @@ formulas:
   ppu: "(price / age).toFixed(2)"
 ```
 
-Formula properties support basic arithmetic operators and a variety of built-in [[Functions]]. In the future, plugins will be able to add functions for use in formulas.
+Formula properties support basic arithmetic operators and a variety of built-in [[functions]]. In the future, plugins will be able to add functions for use in formulas.
 
 You can reference properties in different ways depending on their type:
 
@@ -206,7 +206,7 @@ views:
 - `groupBy` specifies a property and sort direction. The value of the specified property for each row is used to place the row into groups.
 - `summaries` maps property names to a named summary. Summaries perform an aggregation on the property across all rows.
 
-[[Views]] can add additional data to store any information needed to maintain state or properly render, however plugin authors should take care to not use keys already in use by the core Bases plugin. As an example, a table view may use this to limit the number of rows or to select which column is used to sort rows and in which direction. A different view type such as a map could use this for mapping which property in the note corresponds to the latitude and longitude and which property should be displayed as the pin title.
+[[views]] can add additional data to store any information needed to maintain state or properly render, however plugin authors should take care to not use keys already in use by the core Bases plugin. As an example, a table view may use this to limit the number of rows or to select which column is used to sort rows and in which direction. A different view type such as a map could use this for mapping which property in the note corresponds to the latitude and longitude and which property should be displayed as the pin title.
 
 In the future, API will allow views to read and write these values, allowing the view to build its own interface for configuration.
 
@@ -220,7 +220,7 @@ There are three kinds of properties used in bases:
 
 ### Note properties
 
-[[Properties|Note properties]] are only available for Markdown files, and are stored in the YAML frontmatter of each note. These properties can be accessed using the format `note.author` or simply `author` as a shorthand.
+[[PROPERTIES|Note properties]] are only available for Markdown files, and are stored in the YAML frontmatter of each note. These properties can be accessed using the format `note.author` or simply `author` as a shorthand.
 
 ### File properties
 
@@ -285,7 +285,7 @@ Dates can be modified by adding and subtracting durations. Duration units accept
 
 To modify or offset Date objects, use the `+` or `-` operator with a duration string. For example, `date + "1M"` adds 1 month to the date, while `date - "2h"` subtracts 2 hours from the date.
 
-The global [[Functions|function]] `today()` can be used to get the current date, and `now()` can be used to get the current date with time.
+The global [[functions|function]] `today()` can be used to get the current date, and `now()` can be used to get the current date with time.
 
 - `now() + "1 day"` returns a datetime exactly 24 hours from the time of execution.
 - `file.mtime > now() - "1 week"` returns `true` if the file was modified within the last week.
@@ -319,7 +319,7 @@ Boolean operators can be used to combine or invert logical values, resulting in 
 
 ## Functions
 
-See the [[Functions|list of functions]] that can be used in formulas and [[Views|filters]].
+See the [[functions|list of functions]] that can be used in formulas and [[views|filters]].
 
 ## Types
 
@@ -335,13 +335,13 @@ Strings, numbers, and booleans are "primitive" values which do not require a fun
 
 ### Dates and durations
 
-Dates represent a specific date, or a date and time depending on the function used to create them, or that type that has been assigned to the [[Properties|property]].
+Dates represent a specific date, or a date and time depending on the function used to create them, or that type that has been assigned to the [[PROPERTIES|property]].
 
 - To construct a date, use the `date` function, for example `date("2025-01-01 12:00:00")`
 - To modify a date, add or remove a duration, for example `now() + "1 hour"` or `today() + "7d"`
 - Compare dates using comparison operators (e.g. `>` or `<`) and arithmetic operators (for example, `(now() + "1d") - now()` returns `86400000` milliseconds.)
 - To extract portions of a date, use the available fields (`now().hour`), or a convenience function (`now.time()`).
-- Many other [[Functions|fields and functions]] are available on date objects.
+- Many other [[functions|fields and functions]] are available on date objects.
 
 ### Objects and lists
 
@@ -351,9 +351,9 @@ Dates represent a specific date, or a date and time depending on the function us
 
 ### Files and links
 
-[[Link notes|Wikilinks]] in [[Properties|frontmatter properties]] are automatically recognized as Link objects. Links will render as a clickable link in the [[Views|view]].
+[[Link notes|Wikilinks]] in [[PROPERTIES|frontmatter properties]] are automatically recognized as Link objects. Links will render as a clickable link in the [[views|view]].
 
-- To construct a link, use the global `link` [[Functions|function]], for example `link("filename")` or `link("https://obsidian.md")`.
+- To construct a link, use the global `link` [[functions|function]], for example `link("filename")` or `link("https://obsidian.md")`.
 - You can create a link from any string, for example, `link(file.ctime.date().toString())`.
 - To set the display text, pass in an optional string or icon as a second parameter, for example `link("filename", "display")` or `link("filename", icon("plus"))`.
 

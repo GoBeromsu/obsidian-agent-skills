@@ -13,29 +13,31 @@ Historical note: before 2026-04-21, target #4 deployed to `m1-pro:~/.openclaw/sk
 ## GitHub deploy runbook (Steps 2–5)
 
 ```bash
-REPO="${AGENT_SKILLS_REPO_PATH:-$HOME/dev/agent-skills}"
-VAULT="/Users/beomsu/Documents/01. Obsidian/Ataraxia/50. AI/04 Skills"
+REPO="${OBSIDIAN_AGENT_SKILLS_REPO_PATH:-$HOME/dev/obsidian-agent-skills}"
+VAULT="/Users/beomsu/Documents/01. Obsidian/Ataraxia/50. AI/04 Skills/Obsidian"
 
 # Step 2 — Prepare repo
 if [ ! -d "$REPO/.git" ]; then
-  gh repo view GoBeromsu/agent-skills &>/dev/null || \
-    gh repo create GoBeromsu/agent-skills --public \
-      --description "Personal Claude Code skill collection"
-  gh repo clone GoBeromsu/agent-skills "$REPO"
+  gh repo view GoBeromsu/obsidian-agent-skills &>/dev/null || \
+    gh repo create GoBeromsu/obsidian-agent-skills --public \
+      --description "Personal Claude Code + Codex + Hermes skill collection"
+  gh repo clone GoBeromsu/obsidian-agent-skills "$REPO"
 fi
 git -C "$REPO" pull --rebase
 
 # Step 3 — Copy publishable skills
 for skill in <publishable-skill-list>; do
-  DEST="$REPO/skills/$skill"
+  DEST="$REPO/skills/Obsidian/$skill"
   mkdir -p "$DEST"
   cp "$VAULT/$skill/SKILL.md" "$DEST/"
   for dir in scripts references assets; do
     [ -d "$VAULT/$skill/$dir" ] && cp -r "$VAULT/$skill/$dir/" "$DEST/$dir/"
   done
-  # Write scope marker for Step 6b
-  scope=$(grep '^deploy_scope:' "$VAULT/$skill/$skill.md" 2>/dev/null | awk '{print $2}' || echo global)
-  echo "$scope" > "$DEST/.deploy_scope"
+  # Write agent_skill_scope marker for Step 6 gating
+  STUB="$VAULT/$skill/$skill.md"
+  awk '/^agent_skill_scope:/{flag=1;next} /^[a-zA-Z_]+:/{flag=0} flag && /^  - /{print $2}' "$STUB" > "$DEST/.agent_skill_scope"
+  # Default to [claude] if the stub is missing the field
+  [ -s "$DEST/.agent_skill_scope" ] || echo claude > "$DEST/.agent_skill_scope"
 done
 
 # Step 4 — Version bump
@@ -58,7 +60,7 @@ git -C "$REPO" diff --cached --quiet && {
 }
 git -C "$REPO" commit -m "deploy: sync skills from vault ($(date +%Y-%m-%d))"
 git -C "$REPO" push -u origin "$BRANCH"
-PR_URL=$(gh pr create --repo GoBeromsu/agent-skills \
+PR_URL=$(gh pr create --repo GoBeromsu/obsidian-agent-skills \
   --title "deploy: sync skills from vault ($(date +%Y-%m-%d))" \
   --body "Automated deploy from skill-deploy. See commits for details." \
   --base main --head "$BRANCH")
@@ -116,12 +118,6 @@ ssh m1-pro "docker exec $HC gws auth status"
 
 If auth is missing, either run `docker exec $HC gws auth login` or bind-mount the host credentials: add `-v $HOME/.config/gws:/root/.config/gws` to the container run command.
 
-## OpenClaw legacy bridge (historical)
+## OpenClaw and Hermes coexist
 
-`~/.openclaw/` is kept as a 30-day standby for rollback after the 2026-04-21 Hermes retarget. `ai.openclaw.gateway.plist` stays loaded until BNC on Hermes completes at least one full successful scheduled run. Once confirmed, decommission with:
-
-```bash
-ssh m1-pro 'launchctl unload ~/Library/LaunchAgents/ai.openclaw.gateway.plist'
-```
-
-Do not delete `~/.openclaw/` until the 30-day window passes. The OpenClaw BNC cron entry on m1-pro is commented out with a `# DEPRECATED-HERMES` prefix (not deleted) to preserve the rollback path.
+OpenClaw and Hermes run in parallel on m1-pro. A single skill whose `agent_skill_scope` lists both `openclaw` and `hermes` is deployed to both runtimes in the same run — OpenClaw via rsync to its workspace (see the `openclaw` skill for the current workspace path), Hermes via the `docker cp` leg above. Do not treat either runtime as deprecated unless the skill's own stub explicitly carries `deprecated: true`.

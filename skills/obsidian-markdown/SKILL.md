@@ -7,7 +7,13 @@ description: Create and edit Obsidian Flavored Markdown with wikilinks, embeds, 
 
 ## Overview
 
-Create and edit valid Obsidian Flavored Markdown (OFM) that also obeys the user's two personal formatting rules. OFM extends CommonMark and GFM with wikilinks, embeds, callouts, properties, comments, and other syntax; this skill covers those extensions and bakes the user's heading-depth and bullet-depth preferences into every note it produces. Standard Markdown (bold, italic, code blocks, tables) is assumed knowledge.
+Create and edit valid Obsidian Flavored Markdown (OFM) that also obeys the user's two personal formatting rules.
+
+## Vault Access
+
+Use the `obsidian-cli` skill for all note creation, edit, search, and property mutation inside the Ataraxia vault. Do not shell out to raw `cat`/`sed` on vault paths. See the `obsidian-cli` SKILL.md for the command surface and required preconditions (Obsidian must be running).
+
+OFM extends CommonMark and GFM with wikilinks, embeds, callouts, properties, comments, and other syntax; this skill covers those extensions and bakes the user's heading-depth and bullet-depth preferences into every note it produces. Standard Markdown (bold, italic, code blocks, tables) is assumed knowledge.
 
 ## When to Use
 
@@ -21,11 +27,11 @@ Create and edit valid Obsidian Flavored Markdown (OFM) that also obeys the user'
 
 ## Workflow
 
-1. **Add frontmatter** with properties (title, tags, aliases) at the top of the file. See [PROPERTIES.md](references/PROPERTIES.md) for all property types.
+1. **Add frontmatter** with properties (title, tags, aliases) at the top of the file. See [PROPERTIES.md](PROPERTIES.md) for all property types.
 2. **Write content** using standard Markdown for structure, plus the OFM syntax below.
 3. **Link related notes** using wikilinks (`[[Note]]`) for internal vault connections, and standard Markdown links for external URLs.
-4. **Embed content** from other notes, images, or PDFs using `![[embed]]`. See [EMBEDS.md](references/EMBEDS.md).
-5. **Add callouts** for highlighted information using `> [!type]`. See [CALLOUTS.md](references/CALLOUTS.md).
+4. **Embed content** from other notes, images, or PDFs using `![[embed]]`. See [EMBEDS.md](EMBEDS.md).
+5. **Add callouts** for highlighted information using `> [!type]`. See [CALLOUTS.md](CALLOUTS.md).
 6. **Check formatting against the Formatting Rules below** -- no H1, no H5+, no bullet past depth 3. Fix before moving on.
 7. **Verify** the note renders correctly in Obsidian's reading view.
 
@@ -110,7 +116,7 @@ Prefix any wikilink with `!` to embed its content inline:
 ![[document.pdf#page=3]]               Embed PDF page
 ```
 
-See [EMBEDS.md](references/EMBEDS.md) for audio, video, search embeds, and external images.
+See [EMBEDS.md](EMBEDS.md) for audio, video, search embeds, and external images.
 
 ## Callouts
 
@@ -127,7 +133,7 @@ See [EMBEDS.md](references/EMBEDS.md) for audio, video, search embeds, and exter
 
 Common types: `note`, `tip`, `warning`, `info`, `example`, `quote`, `bug`, `danger`, `success`, `failure`, `question`, `abstract`, `todo`.
 
-See [CALLOUTS.md](references/CALLOUTS.md) for the full list with aliases, nesting, and custom CSS callouts.
+See [CALLOUTS.md](CALLOUTS.md) for the full list with aliases, nesting, and custom CSS callouts.
 
 ## Properties (Frontmatter)
 
@@ -145,7 +151,7 @@ cssclasses:
 ---
 ```
 
-Default properties: `tags` (searchable labels), `aliases` (alternative note names for link suggestions), `cssclasses` (CSS classes for styling). See [PROPERTIES.md](references/PROPERTIES.md) for all property types, tag syntax rules, and advanced usage.
+Default properties: `tags` (searchable labels), `aliases` (alternative note names for link suggestions), `cssclasses` (CSS classes for styling). See [PROPERTIES.md](PROPERTIES.md) for all property types, tag syntax rules, and advanced usage.
 
 ## Tags
 
@@ -278,7 +284,7 @@ Reviewed in [[Meeting Notes 2024-01-10#Decisions]].
 - [ ] `grep -nE '^#{5,} ' <note>` returns zero matches (no H5+).
 - [ ] `grep -nE '^ {6,}- |^\t{3,}- ' <note>` returns zero matches for 2-space indentation (or `^ {12,}-` for 4-space).
 - [ ] Every wikilink resolves to an existing note or is explicitly intended as a placeholder.
-- [ ] Callouts use a valid type from [CALLOUTS.md](references/CALLOUTS.md).
+- [ ] Callouts use a valid type from [CALLOUTS.md](CALLOUTS.md).
 - [ ] The note renders in Obsidian reading view without broken embeds or unrendered syntax.
 
 ## References

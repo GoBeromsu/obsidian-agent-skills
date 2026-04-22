@@ -14,6 +14,10 @@ description: >
 
 Full Zotero workflow covering `zt` CLI (search, import, export, batch ops) and the Obsidian vault pipeline (import → normalize → sync → review). Paper notes live at `80. References/02 Paper/{citekey}.md`. BetterBibTeX must be enabled for correct citekey-based filenames.
 
+## Vault Access
+
+Use the `obsidian-cli` skill for all note creation, edit, search, and property mutation inside the Ataraxia vault. Do not shell out to raw `cat`/`sed` on vault paths. See the `obsidian-cli` SKILL.md for the command surface and required preconditions (Obsidian must be running).
+
 ## When to Use
 
 - Use when the user wants to search Zotero, import a paper note, sync annotations, or create a review note

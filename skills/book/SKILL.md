@@ -9,6 +9,10 @@ description: Create or update book notes in the Obsidian vault with structured f
 
 Create or update book notes in `80. References/01 Book/`. Three source paths: URL-based (yes24.com), title-only (WebSearch fallback), or classic/historical text (Korean filename convention). Covers both creation and update workflows, including ToC skeleton injection and highlight-to-chapter mapping.
 
+## Vault Access
+
+Use the `obsidian-cli` skill for all note creation, edit, search, and property mutation inside the Ataraxia vault. Do not shell out to raw `cat`/`sed` on vault paths. See the `obsidian-cli` SKILL.md for the command surface and required preconditions (Obsidian must be running).
+
 ## When to Use
 
 - Use when the user provides a yes24.com URL or any bookstore link

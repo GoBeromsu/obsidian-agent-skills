@@ -9,6 +9,10 @@ description: Extract clean markdown from web articles and documentation pages us
 
 Defuddle (by kepano) extracts article content from web pages and returns clean markdown. It strips away navigation, ads, sidebars, and boilerplate — producing smaller, more focused content than a raw HTML fetch. It is the preferred web content extractor for readable pages in the vault workflow.
 
+## Vault Access
+
+Use the `obsidian-cli` skill for all note creation, edit, search, and property mutation inside the Ataraxia vault. Do not shell out to raw `cat`/`sed` on vault paths. See the `obsidian-cli` SKILL.md for the command surface and required preconditions (Obsidian must be running).
+
 ## When to Use
 
 - Fetching article, blog, or documentation content for summarization or note-taking

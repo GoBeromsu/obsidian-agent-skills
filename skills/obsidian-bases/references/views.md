@@ -41,7 +41,7 @@ Views can be displayed with different layouts including as  ![[lucide-table.svg#
 
 | Layout                | Description                                                                                   | App&nbsp;version |
 | --------------------- | --------------------------------------------------------------------------------------------- | ---------------- |
-| [[Table view\|Table]] | Display files as rows in a table. Columns are populated from [[properties]] in your notes.    | 1.9              |
+| [[Table view\|Table]] | Display files as rows in a table. Columns are populated from [[PROPERTIES]] in your notes.    | 1.9              |
 | [[Cards view\|Cards]] | Display files as a grid of cards. Lets you create gallery-like views with images.             | 1.9              |
 | [[List view\|List]]   | Display files as a [[Basic formatting syntax#Lists\|list]] with bulleted or numbered markers. | 1.10             |
 | [[Map view\|Map]]     | Display files as pins on an interactive map. Requires the Maps plugin.                        | 1.10             |
@@ -62,9 +62,9 @@ Filters can be applied to all views in a base, or just a single view by choosing
 
 Filters have three components:
 
-1. **Property** — lets you choose a [[Properties|property]] in your vault, including [[Bases syntax#File properties|file properties]].
+1. **Property** — lets you choose a [[PROPERTIES|property]] in your vault, including [[Bases syntax#File properties|file properties]].
 2. **Operator** — lets you choose how to compare the conditions. The list of available operators depends on the property type (text, date, number, etc) 
-3. **Value** — lets you choose the value you are comparing to. Values can include math and [[Functions|functions]].
+3. **Value** — lets you choose the value you are comparing to. Values can include math and [[functions|functions]].
 
 #### Conjunctions
 
@@ -78,7 +78,7 @@ Filter groups allow you to create more complex logic by creating combinations on
 
 #### Advanced filter editor
 
-Click the code button ![[lucide-code-xml.svg#icon]] to use the **advanced filter** editor. This displays the raw [[Bases syntax|syntax]] for the filter, and can be used with more complex [[Functions|functions]] that cannot be displayed using the point-and-click interface.
+Click the code button ![[lucide-code-xml.svg#icon]] to use the **advanced filter** editor. This displays the raw [[Bases syntax|syntax]] for the filter, and can be used with more complex [[functions|functions]] that cannot be displayed using the point-and-click interface.
 
 ## Sort and group results
 
