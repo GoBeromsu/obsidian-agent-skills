@@ -52,6 +52,15 @@ Directory name is `lowercase-hyphen-separated` and matches `name` frontmatter ex
 
 For objectively verifiable outputs, run Anthropic's eval loop from `skill-creator`; skip for subjective outputs. Point the user at the skill path. If `publish: true`, auto-invoke `Skill("skill-deploy")` — do not merely remind the user.
 
+## Common Rationalizations
+
+| Rationalization | Reality |
+|---|---|
+| "I'll skip the reviewer for a trivial edit." | The reviewer is the schema gate; skipping it means no Change Log enforcement. |
+| "The Guideline is simple enough to remember." | Reviewer errs whenever the in-agent copy drifts from the runtime file; always reread. |
+| "One Change Log entry is enough for a same-day second edit." | Same-day guard appends with a sequential suffix; silent overwrite loses the first edit's context. |
+| "Korean user phrases belong in the body for discoverability." | They belong in `description` (trigger bait) and literal example strings, never in body prose. |
+
 ## Red Flags
 
 - Writing SKILL.md before both dependency checks printed OK
