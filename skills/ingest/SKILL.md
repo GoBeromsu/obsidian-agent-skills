@@ -41,15 +41,15 @@ Follow `references/stage1-raw.md` in detail. Summary:
 
 1. Detect URL type (video vs article)
 2. Interview the user briefly (1-3 exchanges) for resonance (공명)
-3. Validate the URL (https scheme, no shell metacharacters); run `defuddle parse "URL" --md -o /tmp/ingest-defuddle-output.md`; delete the temp file after reading
+3. Security-validate the URL (ingest-owned), then invoke `/defuddle`: JSON mode for articles, markdown mode (`--md -o /tmp/ingest-defuddle-output.md`) for video transcripts; delete the temp file after reading
 4. Load the correct template from `assets/`:
    - Video: `assets/video-raw.template.md`
    - Article: `assets/article-raw.template.md`
 5. Fill the template. Resolve author/channel against `70. Collections/01 People/` and `50. AI/03 People/`. Never write a broken wikilink.
 6. Sanitize the filename (allowlist `[A-Za-z0-9가-힣 ._-]`, ≤ 60 chars, assert final path starts with the expected base dir)
 7. Save:
-   - Video → `80. References/05 Videos/TITLE.md` (`status: raw`)
-   - Article → `80. References/04 Articles/TITLE.md` (`status: raw`)
+   - Video → `80. References/05 Videos/TITLE.md` (`status: todo`)
+   - Article → `80. References/04 Articles/TITLE.md` (`status: todo`)
 8. **Spawn Stage 2** (see directive below)
 
 ### Stage 2 spawn directive
@@ -173,7 +173,7 @@ ingest/
 
 ## Verification
 
-- [ ] Raw note saved at `80. References/{05 Videos|04 Articles}/TITLE.md` with `status: raw`
+- [ ] Raw note saved at `80. References/{05 Videos|04 Articles}/TITLE.md` with `status: todo`
 - [ ] Raw has non-empty `## 공명`
 - [ ] Stage 2 spawned via Task tool (not continued in same context)
 - [ ] Processed note saved at `50. AI/{05 Videos|06 Articles}/TITLE.md` with `status: done`

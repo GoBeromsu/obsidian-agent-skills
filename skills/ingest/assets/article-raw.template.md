@@ -9,13 +9,10 @@ tags:
   - reference
   - reference/article
 type: article
-status: raw
-date_created:
-  "{ date_created }":
-date_modified:
-  "{ date_modified }":
-date_published:
-  "{ date_published }":
+status: todo
+date_created: "{{date_iso}}"
+date_modified: "{{date_iso}}"
+date_published: "{{published_iso}}"
 language: "{{language}}"
 domain: "{{domain}}"
 related: []

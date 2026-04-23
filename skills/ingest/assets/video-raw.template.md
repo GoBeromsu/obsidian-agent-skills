@@ -12,15 +12,11 @@ tags:
   - reference
   - reference/video
 type: video
-status: raw
-date_created:
-  "{ date_created }":
-date_modified:
-  "{ date_modified }":
-date_published:
-  "{ upload_date }":
-duration_seconds:
-  "{ duration_seconds }":
+status: todo
+date_created: "{{date_iso}}"
+date_modified: "{{date_iso}}"
+date_published: "{{upload_date_iso}}"
+duration_seconds: "{{duration_seconds}}"
 video_id: "{{video_id}}"
 language: "{{language}}"
 ---

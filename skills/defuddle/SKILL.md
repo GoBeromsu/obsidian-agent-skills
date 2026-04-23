@@ -5,82 +5,73 @@ description: Extract clean markdown from web articles and documentation pages us
 
 # Defuddle
 
-## Overview
-
-Defuddle (by kepano) extracts article content from web pages and returns clean markdown. It strips away navigation, ads, sidebars, and boilerplate — producing smaller, more focused content than a raw HTML fetch. It is the preferred web content extractor for readable pages in the vault workflow.
-
-## Vault Access
-
-Use the `obsidian-cli` skill for all note creation, edit, search, and property mutation inside the Ataraxia vault. Do not shell out to raw `cat`/`sed` on vault paths. See the `obsidian-cli` SKILL.md for the command surface and required preconditions (Obsidian must be running).
+Defuddle extracts article content from web pages and returns clean markdown, stripping navigation, ads, sidebars, and boilerplate. Preferred over WebFetch for readable pages.
 
 ## When to Use
 
-- Fetching article, blog, or documentation content for summarization or note-taking
-- Extracting metadata (title, description, author, domain) from a web page
+- Fetching article, blog, or documentation content
+- Extracting metadata from a web page
 - Converting a local HTML file to clean markdown
-- Any task where clean text matters more than raw HTML fidelity
 
-**NOT for:**
-- API endpoints or JSON responses — use `WebFetch`
-- Sites requiring authentication or JavaScript rendering — use `scrapling`
-- Cases where raw HTML structure is needed — use `WebFetch`
+**Not for:** API endpoints, JSON responses, sites requiring authentication or JavaScript rendering (use `scrapling`), or cases where raw HTML structure is needed.
 
-## Process
+## Commands
 
-1. **Fetch as markdown** (default for most tasks):
-   ```bash
-   defuddle parse <url> --markdown
-   ```
+```bash
+# Markdown output (default for most tasks)
+defuddle parse <url> --markdown
 
-2. **Fetch as JSON** when you need metadata + content together:
-   ```bash
-   defuddle parse <url> --json
-   ```
+# JSON output — metadata + content together
+defuddle parse <url> --json
 
-3. **Extract a single metadata field**:
-   ```bash
-   defuddle parse <url> -p title
-   defuddle parse <url> -p description
-   defuddle parse <url> -p domain
-   ```
+# Extract a single metadata field
+defuddle parse <url> -p title
+defuddle parse <url> -p description
+defuddle parse <url> -p domain
 
-4. **Parse a local HTML file**:
-   ```bash
-   defuddle parse ./page.html --markdown
-   ```
+# Local HTML file
+defuddle parse ./page.html --markdown
 
-5. **Save output to file**:
-   ```bash
-   defuddle parse <url> --markdown -o output.md
-   ```
+# Save to file
+defuddle parse <url> --markdown -o output.md
 
-6. **Specify preferred language** (BCP 47):
-   ```bash
-   defuddle parse <url> --markdown -l ko
-   ```
+# Preferred language (BCP 47)
+defuddle parse <url> --markdown -l ko
+```
 
-7. **Check the result** — confirm the output is non-empty and materially cleaner than raw HTML. If the result is empty or poor quality (JS-heavy SPA), fall back to `scrapling`.
+If output is empty or poor quality (JS-heavy SPA), fall back to `scrapling`.
 
-See `references/cli-reference.md` for full option details.
+## URL Validation Posture
 
-## Common Rationalizations
+Pass URLs exactly as provided. Do not modify, normalize, or validate URLs before passing them to defuddle — let the CLI handle errors.
 
-| Rationalization | Reality |
+## Checklist
+
+- [ ] Used `--markdown` for readable pages (raw HTML is the default without it)
+- [ ] Output mode matches downstream task (markdown for content, JSON for metadata)
+- [ ] Extracted content is non-empty; used `scrapling` fallback if empty
+
+## Using defuddle for ingest-style metadata extraction
+
+When ingesting a URL into the vault, use JSON mode to capture all metadata in one pass:
+
+```bash
+defuddle parse "URL" --json
+```
+
+The JSON output follows this canonical schema:
+
+| Field | Source |
 | --- | --- |
-| "I'll use WebFetch and clean it manually later." | Defuddle handles the extraction and cleaning in one step — less token waste, cleaner result. |
-| "The page is blank, so Defuddle is broken." | JS-heavy SPAs need a real browser. Fall back to `scrapling` instead. |
-| "I don't need to check the output." | Extraction quality varies by site. A quick review prevents garbage downstream. |
+| `title` | `<title>` or `og:title` |
+| `author` | byline or `author` meta |
+| `description` | `meta[name=description]` or `og:description` |
+| `domain` | hostname extracted from URL |
+| `image` | `og:image` |
+| `language` | `lang` attribute or `Content-Language` header |
+| `published` | `article:published_time` or date byline |
+| `content` | cleaned article body as markdown |
 
-## Red Flags
+Use `-p <field>` to extract a single field (e.g., `defuddle parse "URL" -p title`).
 
-- `WebFetch` used for a standard readable page when `defuddle` would produce cleaner output
-- Empty extraction passed downstream without attempting `scrapling` fallback
-- Using `defuddle` for API endpoints or JSON responses
-- Skipping `--markdown` flag (raw HTML is the default without it)
-
-## Verification
-
-- [ ] `defuddle parse <url> --markdown` was used as the first extraction attempt for readable pages
-- [ ] Output mode matches the downstream task (markdown for content, JSON for metadata)
-- [ ] Extracted content is non-empty
-- [ ] `scrapling` fallback used when defuddle returns empty on JS-heavy sites
+After extraction, map these fields directly into the note's YAML frontmatter. If any field is missing in the JSON output, leave it blank rather than guessing.
