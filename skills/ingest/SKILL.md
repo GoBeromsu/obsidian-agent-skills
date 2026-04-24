@@ -1,7 +1,7 @@
 ---
 name: ingest
 description: >
-  4-stage pipeline with terminology graph integration: Stage 1 saves raw (exits after spawning Stage 2), Stage 2 rewrites to 「W를 찾아서」-grade prose and spawns Stage 4 on APPROVE, Stage 3 audits transcript coverage, Stage 4 fans out /terminology subagents to refresh the corpus. Triggers: "ingest", "영상 저장", "아티클 저장", "노트 만들어줘".
+  4-stage pipeline with terminology graph integration: Stage 1 extracts via defuddle JSON (8-field contract), saves with status:todo (exits after spawning Stage 2), Stage 2 rewrites to 「W를 찾아서」-grade prose and spawns Stage 4 on APPROVE, Stage 3 audits transcript coverage, Stage 4 fans out /terminology subagents to refresh the corpus. Triggers: "ingest", "영상 저장", "아티클 저장", "노트 만들어줘".
 ---
 
 # ingest
@@ -41,15 +41,15 @@ Follow `references/stage1-raw.md` in detail. Summary:
 
 1. Detect URL type (video vs article)
 2. Interview the user briefly (1-3 exchanges) for resonance (공명)
-3. Validate the URL (https scheme, no shell metacharacters); run `defuddle parse "URL" --md -o /tmp/ingest-defuddle-output.md`; delete the temp file after reading
+3. Validate the URL (https scheme, no shell metacharacters); run `defuddle parse "URL" --json` to obtain the 8-field JSON object (`title`, `author`, `description`, `domain`, `image`, `language`, `published`, `content`); use `content` for the note body and remaining fields for frontmatter
 4. Load the correct template from `assets/`:
    - Video: `assets/video-raw.template.md`
    - Article: `assets/article-raw.template.md`
 5. Fill the template. Resolve author/channel against `70. Collections/01 People/` and `50. AI/03 People/`. Never write a broken wikilink.
 6. Sanitize the filename (allowlist `[A-Za-z0-9가-힣 ._-]`, ≤ 60 chars, assert final path starts with the expected base dir)
 7. Save:
-   - Video → `80. References/05 Videos/TITLE.md` (`status: raw`)
-   - Article → `80. References/04 Articles/TITLE.md` (`status: raw`)
+   - Video → `80. References/05 Videos/TITLE.md` (`status: todo`)
+   - Article → `80. References/04 Articles/TITLE.md` (`status: todo`)
 8. **Spawn Stage 2** (see directive below)
 
 ### Stage 2 spawn directive
@@ -173,7 +173,7 @@ ingest/
 
 ## Verification
 
-- [ ] Raw note saved at `80. References/{05 Videos|04 Articles}/TITLE.md` with `status: raw`
+- [ ] Raw note saved at `80. References/{05 Videos|04 Articles}/TITLE.md` with `status: todo`
 - [ ] Raw has non-empty `## 공명`
 - [ ] Stage 2 spawned via Task tool (not continued in same context)
 - [ ] Processed note saved at `50. AI/{05 Videos|06 Articles}/TITLE.md` with `status: done`

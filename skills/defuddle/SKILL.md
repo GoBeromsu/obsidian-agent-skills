@@ -32,10 +32,22 @@ Use the `obsidian-cli` skill for all note creation, edit, search, and property m
    defuddle parse <url> --markdown
    ```
 
-2. **Fetch as JSON** when you need metadata + content together:
+2. **Fetch as JSON** when you need metadata + content together (e.g., passing structured data to downstream ingest pipelines):
    ```bash
    defuddle parse <url> --json
    ```
+   The JSON object always contains these 8 fields (callers may rely on all keys being present):
+
+   | Field | Source |
+   | --- | --- |
+   | `title` | `<title>` or `og:title` |
+   | `author` | byline or `author` meta |
+   | `description` | `meta[name=description]` or `og:description` |
+   | `domain` | hostname extracted from URL |
+   | `image` | `og:image` |
+   | `language` | `lang` attribute or `Content-Language` header |
+   | `published` | `article:published_time` or date byline |
+   | `content` | cleaned article body as markdown |
 
 3. **Extract a single metadata field**:
    ```bash

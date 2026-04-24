@@ -130,4 +130,21 @@ If auth is missing, run `ssh m1-pro "gws auth login"`.
 
 ## OpenClaw and Hermes coexist
 
-OpenClaw and Hermes run in parallel on m1-pro. A single skill whose `agent_skill_scope` lists both `openclaw` and `hermes` is deployed to both runtimes in the same run — OpenClaw via per-skill rsync to `~/.openclaw/skills/<skill>/`, Hermes via per-skill rsync to `~/.hermes/skills/openclaw-imports/<skill>/`. Both use plain filesystem transport over tailscale ssh; neither requires Docker. Do not treat either runtime as deprecated unless the skill's own stub explicitly carries `deprecated: true`.
+OpenClaw and Hermes run in parallel on m1-pro. A single skill whose `agent_skill_scope` lists either `openclaw` / `openclaw-xia` plus `hermes` is deployed to both runtimes in the same run — OpenClaw via per-skill rsync to `~/.openclaw/skills/<skill>/` (global) or `~/.openclaw/workspace/skills/<skill>/` (xia-only), Hermes via per-skill rsync to `~/.hermes/skills/openclaw-imports/<skill>/`. Both use plain filesystem transport over tailscale ssh; neither requires Docker. Do not treat either runtime as deprecated unless the skill's own stub explicitly carries `deprecated: true`.
+
+## openclaw vs openclaw-xia — agent-scoped routing
+
+OpenClaw has no first-class per-agent skill directory yet. `agents.list[].skills` in `~/.openclaw/openclaw.json` is an **allowlist** that replaces the defaults rather than augmenting them, so using it to make a skill agent-specific would require restating every other skill the agent consumes. The workable alternative is the agent's workspace path: OpenClaw loads skills from `<workspace>/skills/` in addition to the global roots.
+
+- **Main `xia` agent** resolves its workspace to `~/.openclaw/workspace/` (the default when `agents.list[].workspace` is unset or empty). No other agent shares that exact path; sibling agents get `~/.openclaw/workspace-xia-pkm-roundup/`, `workspace-obsidian-maestro/`, etc.
+- Placing a skill at `~/.openclaw/workspace/skills/<skill>/` therefore loads only for main (`xia`) and is invisible to every other agent.
+- Global skills stay in `~/.openclaw/skills/<skill>/` and load for every agent unless an agent's allowlist narrows the set.
+
+Why obsidian-* skills route to `openclaw-xia`:
+
+- Obsidian vault tooling (cli, bases, markdown, mermaid, sync, vault-doctor, clipper-template-creator) is only meaningful when an Obsidian instance is attached. In the current setup only `xia` runs attached to the vault; other agents (`xia-pkm-roundup`, `obsidian-maestro`) are scheduled/batch jobs that should not trigger or surface these skills.
+- Keeping obsidian-* out of the global pool avoids the skill list growing for every agent in the gateway (reduces prompt surface + prevents accidental loading).
+
+Mutual exclusivity: `openclaw` and `openclaw-xia` never coexist on one stub. `skill-deploy` aborts on that combination because rsync would leave the skill under both roots and OpenClaw would load it twice, double-counting the skill in the agent's context.
+
+Migration: to flip a global skill to xia-only, (a) edit the stub's `agent_skill_scope` (replace `openclaw` with `openclaw-xia`), (b) run `/skill-deploy` (rsync deposits the skill under `~/.openclaw/workspace/skills/<skill>/`), (c) remove the stale global copy with `ssh m1-pro 'rm -rf ~/.openclaw/skills/<skill>'`. Step (c) is manual because skill-deploy's per-skill `rsync --delete` only removes files inside the destination it's writing; it never clears the opposite OpenClaw root.
