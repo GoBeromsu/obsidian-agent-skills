@@ -1,0 +1,44 @@
+{
+  "_description": "Template for env vars extracted from vault guidelines. Claude reads guideline files and fills in the values. Do NOT copy this template as-is — extract fresh values from the actual guideline documents.",
+  "REQUIRED_FIELDS_JSON": {
+    "_source": "00. Core Guideline §1.1 Core Required Fields table, column 1 (backtick field names)",
+    "_format": "JSON array of strings",
+    "_example_shape": ["field1", "field2", "field3"]
+  },
+  "DEPRECATED_KEYS_JSON": {
+    "_source": "00. Core Guideline §1.3 Deprecated Keys table, column 1 (backtick key names)",
+    "_format": "JSON array of strings",
+    "_example_shape": ["old_key1", "old_key2"]
+  },
+  "ALLOWED_STATUS_JSON": {
+    "_source": "00. Core Guideline §1.4 Status Values table, column 1 (backtick values)",
+    "_format": "JSON array of strings",
+    "_example_shape": ["status1", "status2"]
+  },
+  "STATUS_REQUIRED_TYPES_JSON": {
+    "_source": "00. Core Guideline §1.4, line starting with '**필수 유형**' — backtick-wrapped types",
+    "_format": "JSON array of strings",
+    "_example_shape": ["type1", "type2"]
+  },
+  "ALLOWED_TYPES_JSON": {
+    "_source": "01. Frontmatter Guideline §1 Type Map table, column 1 (backtick type values)",
+    "_format": "JSON array of strings",
+    "_example_shape": ["type1", "type2", "type3"]
+  },
+  "TYPE_TAG_MAP_JSON": {
+    "_source": "01. Frontmatter Guideline §1 Type Map — References category types mapped to reference/{type}",
+    "_format": "JSON object: { type: tag }",
+    "_example_shape": {"reftype1": "reference/reftype1", "reftype2": "reference/reftype2"}
+  },
+  "FOLDER_TYPE_RULES_JSON": {
+    "_source": "01. Frontmatter Guideline Caveats §1 — 3-rule decision tree for project/area/archive folders",
+    "_format": "JSON object with fields: folders, index_type, date_prefix_type, default_type, suffix_overrides",
+    "_example_shape": {
+      "folders": ["Folder A", "Folder B"],
+      "index_type": "type_for_index_notes",
+      "date_prefix_type": "type_for_date_prefix_notes",
+      "default_type": "type_for_other_notes",
+      "suffix_overrides": {".suffix.md": "override_type"}
+    }
+  }
+}

@@ -144,6 +144,7 @@ Detailed documentation for all commands, organized by category:
 | `references/developer.md` | eval, dev:cdp/console/css/debug/dom/errors/mobile/screenshot, devtools |
 | `references/known-limitations.md` | Search empty results, batch freeze, undocumented flags |
 | `references/batch-operations.md` | Round-trip rename, health check pattern |
+| `references/safe-update-pattern.md` | Safe rename with backlink sync — `obsidian rename` vs `bash mv` round-trip recovery |
 
 Read the relevant reference file when you need detailed parameter info, examples, or tips for a specific command category.
 
